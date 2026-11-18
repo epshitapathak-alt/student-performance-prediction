@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block title %}About & Model{% endblock %}{% block content %}
+<div class="container mt-4"><h2 class="fw-bold">About the project and model</h2>
+<div class="row g-3"><div class="col-lg-6"><div class="panel h-100"><h5>Problem and objectives</h5>
+<p>Institutions often notice struggling students only after results. This system estimates performance from signals available before the final exam so that advisors can offer help early.</p>
+<ul><li>Predict final exam marks and percentage</li><li>Classify Excellent / Good / Average / At Risk</li><li>Explain each prediction</li><li>Recommend personalised actions</li></ul></div></div>
+<div class="col-lg-6"><div class="panel h-100"><h5>Methodology</h5><p>Clean data, engineer features (assignment completion rate, academic consistency, engagement index), split 80/20, compare models with 5-fold cross-validation, tune with grid search, evaluate on held-out data. Preprocessing and model are saved as one scikit-learn Pipeline to avoid leakage and train/serve mismatch.</p>
+<p class="mb-0"><b>Dataset:</b> {{ m.n_records }} <b>synthetic</b> records ({{ m.n_train }} train / {{ m.n_test }} test). Real anonymised institutional data can replace it by following the README.</p></div></div>
+<div class="col-lg-6"><div class="panel"><h5>Regression models (best: {{ m.regression.best_model }})</h5>
+<div class="table-responsive"><table class="table table-sm"><tr><th>Model</th><th>CV RMSE</th><th>MAE</th><th>RMSE</th><th>R²</th></tr>
+{% for r in m.regression.comparison %}<tr><td>{{ r.Model }}</td><td>{{ r.CV_RMSE }}</td><td>{{ r.MAE }}</td><td>{{ r.RMSE }}</td><td>{{ r.R2 }}</td></tr>{% endfor %}</table></div>
+<small class="text-secondary">Selected by lowest cross-validated RMSE, not assumed in advance.</small></div></div>
+<div class="col-lg-6"><div class="panel"><h5>Classifiers (best: {{ m.classification.best_model }})</h5>
+<div class="table-responsive"><table class="table table-sm"><tr><th>Model</th><th>CV F1</th><th>Acc.</th><th>Prec.</th><th>Recall</th><th>F1</th><th>AUC</th></tr>
+{% for r in m.classification.comparison %}<tr><td>{{ r.Model }}</td><td>{{ r.CV_F1 }}</td><td>{{ r.Accuracy }}</td><td>{{ r.Precision }}</td><td>{{ r.Recall }}</td><td>{{ r.F1 }}</td><td>{{ r.ROC_AUC }}</td></tr>{% endfor %}</table></div></div></div>
+{% for f,t in [('model_comparison.png','Model comparison'),('actual_vs_predicted.png','Actual vs predicted'),('feature_importance.png','Feature importance'),('correlation_heatmap.png','Correlation heatmap')] %}
+<div class="col-md-6"><div class="panel"><h6>{{ t }}</h6><img src="/static/images/{{ f }}" class="img-fluid" alt="{{ t }}"></div></div>{% endfor %}
+<div class="col-12"><div class="panel"><h5>Limitations and ethics</h5><ul class="mb-0">
+<li>The model is trained on synthetic data, so metrics show pipeline behaviour, not real-world accuracy.</li>
+<li>Predictions are estimates and can be wrong; use them to start a conversation, never to decide a student's outcome alone.</li>
+<li>Real deployments need bias and fairness audits across groups, privacy protection (anonymised IDs, consent, access control) and human review.</li>
+<li>Gender is a collected feature here for demonstration; consider removing sensitive attributes in production.</li></ul></div></div>
+</div></div>{% endblock %}

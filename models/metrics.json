@@ -1,0 +1,135 @@
+{
+  "dataset": "SYNTHETIC",
+  "n_records": 3000,
+  "n_train": 2400,
+  "n_test": 600,
+  "version": "1.0",
+  "regression": {
+    "best_model": "Linear Regression",
+    "test": {
+      "MAE": 3.724537239188735,
+      "MSE": 21.777298582047177,
+      "RMSE": 4.666615323984523,
+      "R2": 0.8828916688024758
+    },
+    "comparison": [
+      {
+        "Model": "Linear Regression",
+        "CV_RMSE": 4.6189,
+        "MAE": 3.7245,
+        "MSE": 21.7773,
+        "RMSE": 4.6666,
+        "R2": 0.8829
+      },
+      {
+        "Model": "Gradient Boosting",
+        "CV_RMSE": 4.7945,
+        "MAE": 3.7968,
+        "MSE": 22.8937,
+        "RMSE": 4.7847,
+        "R2": 0.8769
+      },
+      {
+        "Model": "Random Forest",
+        "CV_RMSE": 4.9862,
+        "MAE": 3.9085,
+        "MSE": 24.2062,
+        "RMSE": 4.92,
+        "R2": 0.8698
+      },
+      {
+        "Model": "Decision Tree",
+        "CV_RMSE": 5.9191,
+        "MAE": 4.6846,
+        "MSE": 34.1416,
+        "RMSE": 5.8431,
+        "R2": 0.8164
+      }
+    ]
+  },
+  "classification": {
+    "best_model": "Gradient Boosting",
+    "test": {
+      "Accuracy": 0.8116666666666666,
+      "Precision": 0.8085233849859761,
+      "Recall": 0.806343792907071,
+      "F1": 0.8072008527006285,
+      "ROC_AUC": 0.9563693468092014
+    },
+    "labels": [
+      "Excellent",
+      "Good",
+      "Average",
+      "At Risk"
+    ],
+    "confusion_matrix": [
+      [
+        87,
+        22,
+        0,
+        0
+      ],
+      [
+        26,
+        206,
+        18,
+        0
+      ],
+      [
+        0,
+        28,
+        155,
+        9
+      ],
+      [
+        0,
+        0,
+        10,
+        39
+      ]
+    ],
+    "comparison": [
+      {
+        "Model": "Gradient Boosting",
+        "CV_F1": 0.8106,
+        "Accuracy": 0.8167,
+        "Precision": 0.8154,
+        "Recall": 0.8094,
+        "F1": 0.812,
+        "ROC_AUC": 0.9559
+      },
+      {
+        "Model": "Logistic Regression",
+        "CV_F1": 0.8092,
+        "Accuracy": 0.8117,
+        "Precision": 0.7851,
+        "Recall": 0.851,
+        "F1": 0.8093,
+        "ROC_AUC": 0.9604
+      },
+      {
+        "Model": "Random Forest",
+        "CV_F1": 0.798,
+        "Accuracy": 0.83,
+        "Precision": 0.8183,
+        "Recall": 0.8298,
+        "F1": 0.8237,
+        "ROC_AUC": 0.9576
+      }
+    ]
+  },
+  "importance": {
+    "academic_consistency": 1.9305,
+    "backlogs": 1.3594,
+    "previous_exam_score": 1.0458,
+    "study_hours_per_day": 0.8534,
+    "internal_assessment_score": 0.3304,
+    "class_participation": 0.2452,
+    "attendance_percentage": 0.1276,
+    "practical_score": 0.089,
+    "engagement_index": 0.063,
+    "assignments_completed": 0.0586,
+    "learning_resources_usage": 0.0326,
+    "assignments_total": 0.0317
+  }
+}

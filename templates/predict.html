@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% block title %}Predict{% endblock %}{% block content %}
+<div class="container mt-4"><h2 class="fw-bold">Predict student performance</h2>
+<p class="text-secondary">All fields are validated. Values outside realistic ranges are rejected.</p>
+{% if errors %}<div class="alert alert-danger">Please fix the highlighted fields.</div>{% endif %}
+<form method="post" class="panel" novalidate>
+<div class="group-title">Student (optional)</div>
+<div class="row g-3"><div class="col-md-4"><label class="form-label">Student ID</label>
+<input name="student_code" class="form-control {{ 'is-invalid' if errors.student_code }}" value="{{ values.get('student_code','') }}" placeholder="auto-generated if empty" maxlength="20">
+<div class="invalid-feedback">{{ errors.student_code }}</div></div>
+<div class="col-md-4"><label class="form-label">Name (optional)</label><input name="name" class="form-control" value="{{ values.get('name','') }}" maxlength="60"></div></div>
+{% set ns = namespace(g='') %}
+{% for n,l,lo,hi,st,df,g in fields %}
+{% if g != ns.g %}{% if ns.g %}</div>{% endif %}<div class="group-title">{{ g }}</div><div class="row g-3">{% set ns.g = g %}{% endif %}
+<div class="col-6 col-md-4 col-lg-3"><label class="form-label">{{ l }}</label>
+<input type="number" name="{{ n }}" min="{{ lo }}" max="{{ hi }}" step="{{ st }}" required
+ class="form-control {{ 'is-invalid' if errors.get(n) }}" value="{{ values.get(n, df) }}">
+<div class="invalid-feedback">{{ errors.get(n) }}</div></div>{% endfor %}</div>
+<div class="row g-3 mt-1">
+{% for n,opts in options.items() %}<div class="col-6 col-md-4 col-lg-3"><label class="form-label">{{ n.replace('_',' ').capitalize() }}</label>
+<select name="{{ n }}" class="form-select {{ 'is-invalid' if errors.get(n) }}">{% for o in opts %}<option {{ 'selected' if values.get(n)==o }}>{{ o }}</option>{% endfor %}</select>
+<div class="invalid-feedback">{{ errors.get(n) }}</div></div>{% endfor %}</div>
+<button class="btn btn-primary btn-lg mt-4">Predict performance</button></form></div>
+{% endblock %}

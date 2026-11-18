@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}History{% endblock %}{% block content %}
+<div class="container mt-4"><h2 class="fw-bold">Prediction history</h2>
+{% if rows %}<div class="panel table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr>
+<th>ID</th><th>Date</th><th>Dept/Sem</th><th>Attend.</th><th>Study h</th><th>Prev. marks</th><th>Pred. score</th><th>Pred. %</th><th>Category</th><th>Risk</th></tr></thead><tbody>
+{% for r in rows %}<tr><td>{{ r.student_code }}</td><td>{{ r.prediction_timestamp }}</td><td>{{ r.department }}/{{ r.semester }}</td>
+<td>{{ r.attendance_percentage }}%</td><td>{{ r.study_hours_per_day }}</td><td>{{ r.previous_exam_score }}</td>
+<td>{{ r.predicted_score }}</td><td>{{ r.predicted_percentage }}%</td>
+<td><span class="badge-cat c-{{ r.performance_category.replace(' ','-') }}">{{ r.performance_category }}</span></td>
+<td>{{ (r.risk_probability*100)|round(1) }}%</td></tr>{% endfor %}</tbody></table></div>
+{% else %}<div class="panel">No predictions yet. <a href="/predict">Make your first prediction</a>.</div>{% endif %}</div>
+{% endblock %}

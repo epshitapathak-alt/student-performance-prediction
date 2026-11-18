@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% block title %}Analytics{% endblock %}{% block content %}
+<div class="container mt-4"><h2 class="fw-bold">Analytics dashboard</h2><p class="text-secondary">Based on the synthetic training dataset.</p>
+<div class="row g-3">
+{% for v,l in [(s.total,'Total students'),(s.avg_marks ~ '%','Average percentage'),(s.avg_att ~ '%','Average attendance'),(s.avg_study ~ ' h','Average study hours/day'),(s.at_risk,'At-risk students'),('%.2f' % m.regression.test.R2,'Model R² (test)')] %}
+<div class="col-6 col-lg-2"><div class="stat"><b>{{ v }}</b><span>{{ l }}</span></div></div>{% endfor %}</div>
+<div class="row g-3 mt-1">
+<div class="col-lg-4"><div class="panel"><h6>Performance distribution</h6><canvas id="c1"></canvas></div></div>
+<div class="col-lg-4"><div class="panel"><h6>Attendance vs average percentage</h6><canvas id="c2"></canvas></div></div>
+<div class="col-lg-4"><div class="panel"><h6>Study hours vs average percentage</h6><canvas id="c3"></canvas></div></div>
+<div class="col-lg-6"><div class="panel"><h6>Top factors (permutation importance)</h6><canvas id="c4"></canvas></div></div>
+<div class="col-lg-6"><div class="panel"><h6>Classifier: {{ m.classification.best_model }}</h6>
+<p class="mb-1">Accuracy {{ '%.3f' % m.classification.test.Accuracy }} · Macro-F1 {{ '%.3f' % m.classification.test.F1 }} · ROC-AUC {{ '%.3f' % m.classification.test.ROC_AUC }}</p>
+<img src="/static/images/confusion_matrix.png" class="img-fluid" style="max-height:260px" alt="Confusion matrix"></div></div></div></div>
+{% endblock %}
+{% block scripts %}<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+const S={{ s|tojson }}, imp={{ m.importance|tojson }};
+const mk=(id,type,labels,data,colors,opt={})=>new Chart(document.getElementById(id),{type,data:{labels,datasets:[{data,backgroundColor:colors,borderColor:colors}]},options:{plugins:{legend:{display:type==='doughnut'}},...opt}});
+mk('c1','doughnut',S.dist.labels,S.dist.values,['#16a34a','#2563eb','#f59e0b','#dc2626']);
+mk('c2','bar',S.att.labels,S.att.values,'#6d5dfc');
+mk('c3','bar',S.study.labels,S.study.values,'#2563eb');
+const k=Object.keys(imp).slice(0,8);mk('c4','bar',k.map(x=>x.replace(/_/g,' ')),k.map(x=>imp[x]),'#0f1b3d',{indexAxis:'y'});
+</script>{% endblock %}

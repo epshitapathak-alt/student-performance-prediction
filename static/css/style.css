@@ -1,0 +1,23 @@
+:root{--navy:#0f1b3d;--blue:#2563eb;--purple:#6d5dfc;--bg:#f4f6fc;--good:#16a34a;--mid:#f59e0b;--bad:#dc2626}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:#1e2745}
+.navbar{background:var(--navy)}.navbar .nav-link{color:#c7d0ee}.navbar .nav-link.active,.navbar .nav-link:hover{color:#fff}
+.brand{font-weight:800;color:#fff!important;letter-spacing:-.02em}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#27338f 60%,var(--purple) 100%);color:#fff;padding:5rem 0 4rem}
+.hero h1{font-weight:800;font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.03em;max-width:16ch}
+.hero p{max-width:55ch;color:#d9defa}
+.panel{background:#fff;border-radius:14px;padding:1.5rem;border:1px solid #e3e8f7}
+.stat{background:#fff;border-radius:14px;padding:1.2rem;border:1px solid #e3e8f7;border-left:5px solid var(--blue)}
+.stat b{font-size:1.8rem;display:block}.stat span{color:#667}
+.group-title{font-weight:700;color:var(--navy);border-bottom:2px solid #e3e8f7;padding-bottom:.4rem;margin:1.2rem 0 .8rem}
+.badge-cat{padding:.45rem 1rem;border-radius:99px;font-weight:700;color:#fff}
+.c-Excellent,.c-Good{background:var(--good)}.c-Average{background:var(--mid)}.c-At-Risk{background:var(--bad)}
+.gauge{--p:0;width:190px;height:190px;border-radius:50%;display:grid;place-items:center;margin:auto;
+ background:conic-gradient(var(--col) calc(var(--p)*1%),#e6e9f5 0)}
+.gauge div{width:150px;height:150px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;font-size:2rem;font-weight:800}
+.gauge small{display:block;font-size:.75rem;font-weight:500;color:#667}
+.impact-pos{color:var(--good)}.impact-neg{color:var(--bad)}
+.rec{border-left:4px solid;padding:.6rem .9rem;background:#fff;border-radius:8px;margin-bottom:.6rem}
+.rec-high{border-color:var(--bad)}.rec-medium{border-color:var(--mid)}.rec-low{border-color:var(--blue)}
+.warn{background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d;border-radius:12px;padding:1rem 1.2rem}
+.btn-primary{background:var(--purple);border-color:var(--purple)}.btn-primary:hover{background:#5646e6;border-color:#5646e6}
+footer{background:var(--navy);color:#9fb0e0;padding:1.5rem 0;margin-top:3rem;font-size:.9rem}

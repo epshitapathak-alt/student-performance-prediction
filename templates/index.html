@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block content %}
+<section class="hero"><div class="container">
+<h1>Spot academic risk before the final exam.</h1>
+<p class="mt-3 fs-5">Enter a student's attendance, marks and study habits. Get an estimated score, a performance category, the factors behind it and a tailored improvement plan.</p>
+<a href="/predict" class="btn btn-light btn-lg mt-3 me-2">Predict performance</a>
+<a href="/dashboard" class="btn btn-outline-light btn-lg mt-3">View analytics</a></div></section>
+<div class="container mt-n4" style="margin-top:-2rem"><div class="row g-3">
+{% for v,l in [(m.regression.best_model,'Best regression model'),('%.2f' % m.regression.test.R2,'R² on held-out test data'),('%.1f' % m.regression.test.MAE,'Mean absolute error (marks)'),('%.0f%%' % (m.classification.test.Accuracy*100),'Category accuracy (test)')] %}
+<div class="col-6 col-lg-3"><div class="stat"><b>{{ v }}</b><span>{{ l }}</span></div></div>{% endfor %}</div>
+<div class="row g-3 mt-3">
+{% for t,x in [('Dual prediction','Regression estimates marks; classification gives Excellent, Good, Average or At Risk with a risk probability.'),('Explainable','Every result lists the factors that raised or lowered the estimate.'),('Personalised advice','Recommendations are built from the student\'s own values, not generic text.'),('Responsible by design','Synthetic data, no leakage, validated inputs and a clear estimate-not-guarantee message.')] %}
+<div class="col-md-6 col-lg-3"><div class="panel h-100"><h5>{{ t }}</h5><p class="mb-0 text-secondary">{{ x }}</p></div></div>{% endfor %}</div>
+<p class="mt-4 text-secondary">Built with Python, scikit-learn, Flask, SQLite, Bootstrap and Chart.js. Model comparison and training details are on the <a href="/about">About & Model</a> page.</p></div>
+{% endblock %}
